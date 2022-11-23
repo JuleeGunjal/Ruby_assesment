@@ -1,0 +1,123 @@
+Database
+
+
+1.create database
+  $ sudo -u postgres createdb julee
+  
+  to open posttgres in promp
+  sudo adduser julee
+  sudo -u julee psql
+ ---------------------------------- 
+2.create table
+
+ CREATE TABLE employee(
+ emp_id SERIAL PRIMARY KEY, 
+ first_name VARCHAR, 
+ last_name VARCHAR, 
+ role VARCHAR,
+ salary DECIMAL(9,2));
+ ---------------------------------
+ 
+3.Insert
+
+ 
+  julee=# INSERT INTO employee (first_name,last_name,role,salary) values ('pawan','hire','QA',45000);
+INSERT 0 1
+julee=# INSERT INTO employee (first_name,last_name,role,salary) values ('kiran','mahale','SW-Devloper-ROR',50000);
+INSERT 0 1
+julee=# select * from employee;
+ emp_id | first_name | last_name |      role       |  salary  
+--------+------------+-----------+-----------------+----------
+      1 | pawan      | hire      | QA              | 45000.00
+      2 | kiran      | mahale    | SW-Devloper-ROR | 50000.00
+(2 rows)
+
+julee=# INSERT INTO employee (first_name,last_name,role,salary) values ('kimaya','mali','SW-Devloper-REACT',50000);
+INSERT 0 1
+julee=# INSERT INTO employee (first_name,last_name,role,salary) values ('indra','Jaweri','Full stack developer',60000);
+INSERT 0 1
+-------------------------------------------------------------
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  
+--------+------------+-----------+----------------------+----------
+      1 | pawan      | hire      | QA                   | 45000.00
+      2 | kiran      | mahale    | SW-Devloper-ROR      | 50000.00
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 50000.00
+      4 | indra      | Jaweri    | Full stack developer | 60000.00
+      
+      
+--------------------------------
+4.update
+update first_name of employee with emp_id=1 by "pawana".
+
+julee=# UPDATE  employee
+julee-# SET first_name='pawana'
+julee-# where emp_id=1;
+UPDATE 1
+
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  
+--------+------------+-----------+----------------------+----------
+      2 | kiran      | mahale    | SW-Devloper-ROR      | 50000.00
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 50000.00
+      4 | indra      | Jaweri    | Full stack developer | 60000.00
+      1 | pawana     | hire      | QA                   | 45000.00
+(4 rows)
+
+--------------------------------------
+update salary of all employees whose salary is less than 50000 from employee table  to 55000
+
+
+julee=# UPDATE  employee
+julee-# SET salary=55000
+julee-# where salary <=50000;
+UPDATE 3
+
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  
+--------+------------+-----------+----------------------+----------
+      4 | indra      | Jaweri    | Full stack developer | 60000.00
+      2 | kiran      | mahale    | SW-Devloper-ROR      | 55000.00
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 55000.00
+      1 | pawana     | hire      | QA                   | 55000.00
+(4 rows)
+
+------------------------------------------------------
+
+4.DELETE
+
+delete employee from employee table with id=2
+
+julee=# Delete from employee where emp_id=2;
+DELETE 1
+
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  
+--------+------------+-----------+----------------------+----------
+      4 | indra      | Jaweri    | Full stack developer | 60000.00
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 55000.00
+      1 | pawana     | hire      | QA                   | 55000.00
+(3 rows)
+
+---------------------------------------------
+
+Delete from employee where emp_id=1 returning first_name;
+
+julee=# Delete from employee where emp_id=1 returning first_name;
+ first_name 
+------------
+ pawana
+(1 row)
+
+DELETE 1
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
