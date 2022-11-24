@@ -35,7 +35,7 @@ def hangman_game
   end
 
   #condition to match whether the secrete word searched within lives
-  if secrete_word == board
+  if secrete_word == board.join
      puts "Yooo.....YOU WIN!!!!"
   else
      puts "Ooono...You Loss!!!...Better LUCK Next Time...."
