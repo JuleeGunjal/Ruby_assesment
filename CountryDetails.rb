@@ -1,6 +1,6 @@
 module CountryCriteria
   def eligible_for_loan?
-    if @state_of_country.upcase == "DEVELOPING" || @state_of_country.upcase == "UNDERDEVELOPED"
+    if @state_of_country.upcase == 'DEVELOPING' || @state_of_country.upcase == 'UNDERDEVELOPED'
       puts 'Eligible to get loan from IMF or World Bank'
     else
       puts 'Not eligible to get loan from IMF or World Bank'
@@ -56,8 +56,8 @@ while true
   puts  'Enter any number to exit'
     case gets.chomp.to_i
     when 1
-      puts 'Enter population, GDP, number of states, army strength(200-1),state of country'
-      country = Country.new(gets.chomp.to_i, gets.chomp.to_f, gets.chomp.to_i, gets.chomp.to_i, gets.chomp.to_s)
+      puts 'Enter population, GDP, number of states, army strength(200-1), state of country'
+      country = Country.new(gets.chomp.to_i, gets.chomp.to_f, gets.chomp.to_i, gets.chomp.to_i, gets.chomp)
       is_country = true
     when 2
       if is_country
@@ -65,7 +65,7 @@ while true
       else
         puts 'Enter country details'
       end
-    when 3
+    when 3      
       if is_country
         country.seat_in_uns?
       else
