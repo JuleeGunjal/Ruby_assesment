@@ -1,0 +1,243 @@
+
+        
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  
+--------+------------+-----------+----------------------+----------
+      4 | indra      | Jaweri    | Full stack developer | 60000.00
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 55000.00
+(2 rows)
+
+------------------------------------------------
+   
+INSERT INTO employee (emp_id,first_name,last_name,role,salary) values (1,'Rani','Jadhav','Data scientist',60000);
+INSERT 0 1
+julee=# 
+INSERT INTO employee (emp_id,first_name,last_name,role,salary) values (2,'Madhuri','Jadhav','QA',40000);
+INSERT 0 1
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  
+--------+------------+-----------+----------------------+----------
+      4 | indra      | Jaweri    | Full stack developer | 60000.00
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 55000.00
+      1 | Rani       | Jadhav    | Data scientist       | 60000.00
+      2 | Madhuri    | Jadhav    | QA                   | 40000.00
+(4 rows)
+--------------------------------------------------------------------------
+
+julee=# ALTER TABLE employee
+ADD column dept_nn int;
+ALTER TABLE
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  | dept_nn 
+--------+------------+-----------+----------------------+----------+---------
+      4 | indra      | Jaweri    | Full stack developer | 60000.00 |        
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 55000.00 |        
+      1 | Rani       | Jadhav    | Data scientist       | 60000.00 |        
+      2 | Madhuri    | Jadhav    | QA                   | 40000.00 |        
+(4 rows)
+
+---------------------------------------------------
+julee=# UPDATE employee
+SET dept_nn=1
+where emp_id=1;
+UPDATE 1
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  | dept_nn 
+--------+------------+-----------+----------------------+----------+---------
+      4 | indra      | Jaweri    | Full stack developer | 60000.00 |        
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 55000.00 |        
+      2 | Madhuri    | Jadhav    | QA                   | 40000.00 |        
+      1 | Rani       | Jadhav    | Data scientist       | 60000.00 |       1
+(4 rows)
+------------------------------------------------------------
+julee=# UPDATE employee
+SET dept_nn=2
+where emp_id=2;
+UPDATE 1
+julee=# UPDATE employee
+SET dept_nn=3
+where emp_id=3;
+UPDATE 1
+julee=# UPDATE employee
+SET dept_nn=4
+where emp_id=4;
+UPDATE 1
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  | dept_nn 
+--------+------------+-----------+----------------------+----------+---------
+      1 | Rani       | Jadhav    | Data scientist       | 60000.00 |       1
+      2 | Madhuri    | Jadhav    | QA                   | 40000.00 |       2
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 55000.00 |       3
+      4 | indra      | Jaweri    | Full stack developer | 60000.00 |       4
+      
+(4 rows)
+---------------------------------------------------------
+
+
+julee=# CREATE TABLE department(
+dept_no int PRIMARY KEY,
+d_name varchar,
+destination varchar);
+CREATE TABLE
+------------------------------------------------------
+julee=# Insert into department values(1,"Data Scienntist","Pune");
+ERROR:  column "Data Scienntist" does not exist
+LINE 1: Insert into department values(1,"Data Scienntist","Pune");
+                                        ^
+julee=# Insert into department values(1,'Data Scienntist','Pune');
+INSERT 0 1
+julee=# Insert into department values(2,'QA','Mumbai');
+INSERT 0 1
+julee=# Insert into department values(3,'Front End','Pune');
+INSERT 0 1
+julee=# Insert into department values(4,'Full stack','banglore');
+INSERT 0 1
+julee=# Insert into department values(5,'ROR','pune');
+INSERT 0 1
+julee=# select * from department 
+julee-# ;
+ dept_no |     d_name      | destination 
+---------+-----------------+-------------
+       1 | Data Scienntist | Pune
+       2 | QA              | Mumbai
+       3 | Front End       | Pune
+       4 | Full stack      | banglore
+       5 | ROR             | pune
+(5 rows)
+-----------------------------------------------------------
+
+                                                 
+julee=# Select emp_id,first_name,d_name from employee Cross Join department;
+ emp_id | first_name |     d_name      
+--------+------------+-----------------
+      1 | Rani       | Data Scienntist
+      2 | Madhuri    | Data Scienntist
+      3 | kimaya     | Data Scienntist
+      4 | indra      | Data Scienntist
+      1 | Rani       | QA
+      2 | Madhuri    | QA
+      3 | kimaya     | QA
+      4 | indra      | QA
+      1 | Rani       | Front End
+      2 | Madhuri    | Front End
+      3 | kimaya     | Front End
+      4 | indra      | Front End
+      1 | Rani       | Full stack
+      2 | Madhuri    | Full stack
+      3 | kimaya     | Full stack
+      4 | indra      | Full stack
+      1 | Rani       | ROR
+      2 | Madhuri    | ROR
+      3 | kimaya     | ROR
+      4 | indra      | ROR
+(20 rows)
+----------------------------------------------------------------------------
+
+julee=# Select emp_id,first_name,d_name from employee  INNER Join department on employee.dept_nn=department.dept_no;
+ emp_id | first_name |     d_name      
+--------+------------+-----------------
+      1 | Rani       | Data Scienntist
+      2 | Madhuri    | QA
+      3 | kimaya     | Front End
+      4 | indra      | Full stack
+(4 rows)
+
+-----------------------------------------------------------
+julee=# Select emp_id,first_name,d_name from employee  left outer Join department on employee.dept_nn=department.dept_no;
+ emp_id | first_name |     d_name      
+--------+------------+-----------------
+      1 | Rani       | Data Scienntist
+      2 | Madhuri    | QA
+      3 | kimaya     | Front End
+      4 | indra      | Full stack
+(4 rows)
+--------------------------------------------------------------------
+julee=# Insert into employee(first_name,last_name,role,salary) values('rahi','kale','NA',10000);
+INSERT 0 1
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  | dept_nn 
+--------+------------+-----------+----------------------+----------+---------
+      1 | Rani       | Jadhav    | Data scientist       | 60000.00 |       1
+      2 | Madhuri    | Jadhav    | QA                   | 40000.00 |       2
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 55000.00 |       3
+      4 | indra      | Jaweri    | Full stack developer | 60000.00 |       4
+      5 | rahi       | kale      | NA                   | 10000.00 |        
+(5 rows)
+-----------------------------------------------------------------------
+julee=# Select emp_id,first_name,d_name from employee  left outer Join department on employee.dept_nn=department.dept_no;
+ emp_id | first_name |     d_name      
+--------+------------+-----------------
+      1 | Rani       | Data Scienntist
+      2 | Madhuri    | QA
+      3 | kimaya     | Front End
+      4 | indra      | Full stack
+      5 | rahi       | 
+(5 rows)
+-------------------------------------------------------------------------------
+julee=# Select emp_id,first_name,d_name from employee  right  outer Join department on employee.dept_nn=department.dept_no;
+ emp_id | first_name |     d_name      
+--------+------------+-----------------
+      1 | Rani       | Data Scienntist
+      2 | Madhuri    | QA
+      3 | kimaya     | Front End
+      4 | indra      | Full stack
+        |            | ROR
+(5 rows)
+--------------------------------------------------------------------------
+
+julee=# Select emp_id,first_name,d_name from employee full outer Join department on employee.dept_nn=department.dept_no;
+ emp_id | first_name |     d_name      
+--------+------------+-----------------
+      1 | Rani       | Data Scienntist
+      2 | Madhuri    | QA
+      3 | kimaya     | Front End
+      4 | indra      | Full stack
+      5 | rahi       | 
+        |            | ROR
+(6 rows)
+------------------------------------------------------------------------------------
+
+INSERT INTO employee (first_name,last_name,role,salary,dept_nn) values ('temali','kon','QA',45000,3);
+INSERT 0 1
+julee=# 
+INSERT INTO employee (first_name,last_name,role,salary,dept_nn) values ('dem','ehan','Full stack',45000,4);
+INSERT 0 1
+julee=# select * from employee;
+ emp_id | first_name | last_name |         role         |  salary  | dept_nn 
+--------+------------+-----------+----------------------+----------+---------
+      1 | Rani       | Jadhav    | Data scientist       | 60000.00 |       1
+      2 | Madhuri    | Jadhav    | QA                   | 40000.00 |       2
+      3 | kimaya     | mali      | SW-Devloper-REACT    | 55000.00 |       3
+      4 | indra      | Jaweri    | Full stack developer | 60000.00 |       4
+      5 | rahi       | kale      | NA                   | 10000.00 |        
+      6 | mali       | kiran     | QA                   | 40000.00 |       2
+      7 | temali     | kon       | QA                   | 45000.00 |       3
+      8 | dem        | ehan      | Full stack           | 45000.00 |       4
+(8 rows)
+------------------------------------------------------------------
+julee=# Select avg(salary),dept_nn from employee group by dept_nn;
+          avg           | dept_nn 
+------------------------+---------
+ 10000.0000000000000000 |        
+     50000.000000000000 |       3
+     52500.000000000000 |       4
+     40000.000000000000 |       2
+     60000.000000000000 |       1
+(5 rows)
+
+
+------------------------------------------------------
+
+
+
+ulee=# Select avg(salary),dept_nn from employee group by dept_nn order by dept_nn ;
+          avg           | dept_nn 
+------------------------+---------
+     60000.000000000000 |       1
+     40000.000000000000 |       2
+     50000.000000000000 |       3
+     52500.000000000000 |       4
+ 10000.0000000000000000 |        
+(5 rows)
+
+
