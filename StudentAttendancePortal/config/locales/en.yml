@@ -31,3 +31,11 @@
 
 en:
   hello: "Hello world"
+  invalid: "is not valid"
+  pattern: "should contain at least one capital , one small letter and one special character"
+  wrong_length: "should be of specified length"
+  unique: "should be unique"
+  blank: "should not be blank"
+  teacher_mailer:
+    welcome_email:
+      subject: "Welcome to Students Attendance Portal!"

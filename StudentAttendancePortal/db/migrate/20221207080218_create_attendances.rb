@@ -6,7 +6,6 @@ class CreateAttendances < ActiveRecord::Migration[7.0]
       t.time :time
       t.belongs_to :subjects, index: true, foreign_key: true
       t.timestamps
-    end
-   
+    end   
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_07_084141) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_08_045337) do
   create_table "attendances", force: :cascade do |t|
     t.string "status"
     t.string "month"
@@ -37,8 +37,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_084141) do
   end
 
   create_table "subjects", force: :cascade do |t|
-    t.string "sname"
-    t.string "scode"
+    t.string "name"
+    t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "teachers_id"
