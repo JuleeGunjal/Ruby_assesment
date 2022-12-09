@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_08_045337) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_100910) do
   create_table "attendances", force: :cascade do |t|
     t.string "status"
     t.string "month"
     t.time "time"
-    t.integer "subjects_id"
+    t.integer "subject_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "students_id"
-    t.index ["students_id"], name: "index_attendances_on_students_id"
-    t.index ["subjects_id"], name: "index_attendances_on_subjects_id"
+    t.integer "student_id"
+    t.date "date"
+    t.index ["student_id"], name: "index_attendances_on_student_id"
+    t.index ["subject_id"], name: "index_attendances_on_subject_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -41,8 +42,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_045337) do
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "teachers_id"
-    t.index ["teachers_id"], name: "index_subjects_on_teachers_id"
+    t.integer "teacher_id"
+    t.index ["teacher_id"], name: "index_subjects_on_teacher_id"
   end
 
   create_table "subjects_students", force: :cascade do |t|
@@ -66,7 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_045337) do
     t.string "mobile_no"
   end
 
-  add_foreign_key "attendances", "students", column: "students_id"
-  add_foreign_key "attendances", "subjects", column: "subjects_id"
-  add_foreign_key "subjects", "teachers", column: "teachers_id"
+  add_foreign_key "attendances", "students"
+  add_foreign_key "attendances", "subjects"
+  add_foreign_key "subjects", "teachers"
 end

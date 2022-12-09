@@ -40,3 +40,20 @@ en:
     teacher:
       welcome:
         subject: "Welcome to Students Attendance Portal!"
+    student:
+      welcome:
+        subject: "Welcome to Students Attendance Portal as a Student!!!!"
+  controller:
+    present: "Given entity is not present"
+    show: "Unable to show"
+    save:
+      successful: "Saved sucessfully"
+      failed: "Failed to save"
+    update:
+      successful: "Updated sucessfully"
+      failed: "Failed to update"
+    destroy:
+      successful: "Deleted sucessfully"
+      failed: "Failed to destroy"
+
+      

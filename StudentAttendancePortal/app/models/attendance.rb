@@ -1,3 +1,4 @@
 class Attendance < ApplicationRecord
-  belongs_to :students
+  belongs_to :student 
+  belongs_to :subject
 end
