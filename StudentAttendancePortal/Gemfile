@@ -42,9 +42,6 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-# allows to preview sent emails in  browser.
-gem "letter_opener", group: :development
-
 # RuboCop is a Ruby static code analyzer (a.k.a. linter) and code formatter.
 gem 'rubocop', require: false
 
@@ -57,6 +54,9 @@ gem 'rubocop', require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+
+  # Byebug is a simple to use and feature rich debugger for Ruby.
+  gem 'byebug'
 end
 
 group :development do
@@ -68,6 +68,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  
+  # allows to preview sent emails in  browser.
+  gem "letter_opener"
 end
 
 group :test do
