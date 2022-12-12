@@ -3,39 +3,54 @@ class TeachersController < ApplicationController
   before_action :find_teacher, only: %i[show update destroy]
 
   def index
-    render json: Teacher.all
+    @teachers = Teacher.all
   end
 
   def create
     @teacher = Teacher.new(teacher_params)
-    if @teacher.save
-      render json: { message: I18n.t('controller.save.successful') }
-    else
-      render json: { message: I18n.t('controller.save.failed') }
-    end
+    respond_to do |format|
+      if @teacher.save
+        format.html { redirect_to teacher_url(@teacher), notice: "Teacher was successfully created." }
+        format.json { render :show, status: :created, location: @teacher }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @teacher.errors, status: :unprocessable_entity }
+      end
+    end   
   end
 
-  def show
-    if @teacher
-      render json: @teacher
-    else
-      render json: { message: I18n.t('controller.show.failed') }
-    end
-  end
+   # GET /teachers/1 or /teachers/1.json
+   def show
+     @teacher = Teacher.find params[:id]
+   end
+ 
+   # GET /teachers/new
+   def new
+     @teacher = Teacher.new
+   end
+ 
+   # GET /teachers/1/edit
+   def edit
+    @teacher = Teacher.find(params[:id])
+    render :edit
+   end
+
+  
 
   def update
+    @teacher = Teacher.find(params[:id])
     if @teacher.update(teacher_params)
-      render json: { message: I18n.t('controller.update.successful') }
+      redirect_to(@teacher)
     else
-      render json: { message: I18n.t('controller.update.failed') }
+      render "edit"
     end
   end
 
-  def destroy
-    if @teacher.destroy
-      render json: { message: I18n.t('controller.destroy.successful') }
-    else
-      render json: { message: I18n.t('controller.destroy.failed') }
+  def destroy   
+    @teacher.destroy
+    respond_to do |format|
+      format.html { redirect_to teachers_url, notice: "Teacher was successfully destroyed." }
+      format.json { head :no_content }
     end
   end
 

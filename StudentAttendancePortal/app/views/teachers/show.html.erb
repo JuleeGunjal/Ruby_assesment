@@ -1,0 +1,9 @@
+<h3>Name: <%= @teacher.name %></h3>
+<h3>Email: <%= @teacher.email %></h3>
+<h3>Date of birth: <%= @teacher.dob %></h3>
+<h3>Gender: <%= @teacher.gender %></h3>
+<h3>Address: <%= @teacher.address %></h3>
+<h3>Mobile number: <%= @teacher.mobile_no %></h3>
+
+ <%= link_to "Edit", edit_teacher_path(@teacher)%></br></br></br>
+<%= button_to "Destroy", @teacher, method: :delete %>
