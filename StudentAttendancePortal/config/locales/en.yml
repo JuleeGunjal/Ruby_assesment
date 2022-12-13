@@ -30,6 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+
   hello: "Hello world"
   invalid: "is not valid"
   pattern: "should contain at least one capital , one small letter and one special character"
@@ -40,3 +41,27 @@ en:
     teacher:
       welcome:
         subject: "Welcome to Students Attendance Portal!"
+    student:
+      welcome:
+        subject: "Welcome to Students Attendance Portal as a Student!!!!"
+  controller:
+    present: "Given entity is not present"
+    show: "Unable to show"
+    save:
+      successful: "Saved sucessfully"
+      failed: "Failed to save"
+    update:
+      successful: "Updated sucessfully"
+      failed: "Failed to update"
+    destroy:
+      successful: "Deleted sucessfully"
+      failed: "Failed to destroy"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Validation failed: %{errors}"
+        restrict_dependent_destroy:
+          has_one: "Cannot delete record because a dependent %{record} exists"
+          has_many: "Cannot delete record because dependent %{record} exist"
+
+      

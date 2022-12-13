@@ -1,0 +1,26 @@
+<%= form_with(model: subject) do |form| %>
+  <table>
+    <tr>
+      <div>
+        <td><%= form.label :name, "Name: " %></td>
+        <td><%= form.text_field :name %></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td> <%= form.label :code, 'Code: '%></td>
+        <td><%= form.text_field :code %></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td><%= form.label :teacher_id, 'Teacher name: '%></td>
+        <td> <%= form.collection_select :teacher_id, Teacher.all, :id, :name, prompt: true %></td>
+      </div>
+    </tr>    
+  </table></br>
+
+  <div class="col-3", style="margin: 0 auto;">
+    <%= form.submit class: "btn btn-warning"%>
+  </div>
+<% end %>
