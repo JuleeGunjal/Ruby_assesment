@@ -1,0 +1,44 @@
+<%= form_with(model: attendance) do |form| %>
+  <table>
+     <tr>
+      <div>
+        <td><%= form.label :status, "Status: " %></td>
+        <td><%= form.select :status, ['Present', 'Absent']%></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td><%= form.label :month, "Month: " %></td>
+        <td><%= form.select :month, Date::MONTHNAMES[1..12] %></td>
+      </div>
+    </tr>
+     <tr>
+      <div>
+        <td><%= form.label :time, "Time: " %></td>
+        <td><%= form.time_select :time, :discard_hour => true, :default => {:minute => '00', :second => '00'}, :include_seconds => true %></td>
+      </div>
+    </tr>
+     <tr>
+      <div>
+        <td><%= form.label :date, "Date : " %></td>
+        <td><%= form.date_field :date, as: :date, value: form.object.try(:strftime,"%m/%d/%Y")%></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td><%= form.label :subject_id, 'Subject name: '%></td>
+        <td> <%= form.collection_select :subject_id, Subject.all, :id, :name, prompt: true %></td>
+      </div>
+    </tr> 
+    <tr>
+      <div>
+        <td><%= form.label :student_id, 'Student name: '%></td>
+        <td> <%= form.collection_select :student_id, Student.all, :id, :name, prompt: true %></td>
+      </div>
+    </tr>    
+  </table></br>
+
+  <div class="col-3", style="margin: 0 auto;">
+    <%= form.submit class: "btn btn-warning"%>
+  </div>
+<% end %>

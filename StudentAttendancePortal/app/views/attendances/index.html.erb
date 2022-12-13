@@ -1,0 +1,28 @@
+<div class="col-4" style="margin : 0 auto; padding: 10px">
+  <h1>All Attendance data</h1></br>
+</div>
+<table class="table table-striped">
+  <thead class="thead-light">
+    <tr>
+      <td>ID</td>
+      <td>attendance Status</td>
+      <td>Student Name</td>
+      <td>Subject</td>
+      <td>Time</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @attendances.each do |attendance| %>
+      <tr>
+        <td><%=attendance.id%></td>
+        <td><%= attendance.status %></td>
+        <td><%= attendance.student_id %></td> 
+        <td><%= attendance.subject_id %></td>
+        <td><%= link_to 'show', attendance%></td>
+      </tr>
+   <% end %>
+  </tbody>
+</table>
+<div class="col-2" style="margin : 0 auto; padding: 10px">
+<%= link_to 'Add new', new_attendance_path, class: "btn btn-success" %>
+</div>
