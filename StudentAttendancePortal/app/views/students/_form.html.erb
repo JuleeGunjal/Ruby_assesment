@@ -1,0 +1,64 @@
+<%= form_with(model: student) do |form| %>
+  <table>
+    <tr>
+      <div>
+        <td><%= form.label :name, "Name: " %></td>
+        <td><%= form.text_field :name %></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td> <%= form.label :password, 'Password: '%></td>
+        <td><%= form.password_field :password %></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td><%= form.label :password, 'Confirm -Password: '%></td>
+        <td><%= form.password_field :password_confirmation %></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td><%= form.label :email,"Email: " %></td>
+        <td><%= form.text_field :email %></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td><%= form.radio_button :gender, "Female" %>
+          <%= form.label :Female, "Female" %></td>
+        <td><%= form.radio_button :gender, "Male" %>
+          <%= form.label :Male, "Male" %></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td><%= form.label :dob, "Date of birth: " %></td>
+        <td><%= form.date_field :dob, as: :date, value: form.object.try(:strftime,"%m/%d/%Y")%></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td><%= form.label :semister, 'Semister: ' %></td>
+        <td> <%= form.text_field :semister %></td>
+      </div>
+    </tr>
+     <tr>
+      <div>
+        <td><%= form.label :course, 'course: ' %></td>
+        <td> <%= form.text_field :course %></td>
+      </div>
+    </tr>
+    <tr>
+      <div>
+        <td><%= form.label :address,'Address: ' %></td>
+        <td><%= form.text_field :address %></td>
+      </div>
+    </tr>
+  </table></br>
+
+  <div class="col-3", style="margin: 0 auto;">
+    <%= form.submit class: "btn btn-warning"%>
+  </div>
+<% end %>
