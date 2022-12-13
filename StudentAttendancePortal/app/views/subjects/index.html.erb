@@ -1,0 +1,27 @@
+<div class="col-4" style="margin : 0 auto; padding: 10px">
+  <h1>All subjects data</h1></br>
+</div>
+<table class="table table-striped">
+  <thead class="thead-light">
+    <tr>
+      <td>ID</td>
+      <td>Name</td>
+      <td>Code</td>
+      <td>Teacher's ID</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subjects.each do |subject| %>
+      <tr>
+        <td><%=subject.id%></td>
+        <td><%= subject.name %></td>
+        <td><%= subject.code %></td> 
+        <td><%= subject.teacher_id %></td>
+        <td><%= link_to 'show', subject%></td>
+      </tr>
+   <% end %>
+  </tbody>
+</table>
+<div class="col-2" style="margin : 0 auto; padding: 10px">
+<%= link_to 'Add new', new_subject_path, class: "btn btn-success" %>
+</div>
