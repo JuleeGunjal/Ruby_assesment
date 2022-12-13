@@ -1,42 +1,52 @@
 class SubjectsController < ApplicationController
   protect_from_forgery with: :null_session
-  before_action :find_teacher, only: %i[create update]
   before_action :find_subject, only: %i[show update destroy]
 
   def index
-    render json: Subject.all
+    @subjects = Subject.all
   end
 
   def create
     @subject = Subject.new(subject_params)
-    if @subject.save
-      render json: { message: I18n.t('controller.save.successful') }
-    else
-      render json: { message: I18n.t('controller.save.failed') }
-    end
+    respond_to do |format|
+      if @subject.save
+        format.html { redirect_to subject_url(@subject), notice: "subject was successfully created." }
+        format.json { render :show, status: :created, location: @subject }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @subject.errors, status: :unprocessable_entity }
+      end
+    end 
   end
 
   def show
-    if @subject
-      render json: @subject
-    else
-      render json: { message: I18n.t('controller.show.failed') }
-    end
+    @subject = Subject.find(params[:id])
+  end
+
+  def new
+    @subject = Subject.new
+    
+  end
+
+  def edit
+    @subject = Subject.find(params[:id])   
+    render :edit
   end
 
   def update
+    @subject = Subject.find(params[:id])
     if @subject.update(subject_params)
-      render json: { message: I18n.t('controller.update.successful') }
+      redirect_to(@subject)
     else
-      render json: { message: I18n.t('controller.update.failed') }
+      render "edit"
     end
   end
 
   def destroy
-    if @subject.destroy
-      render json: { message: I18n.t('controller.destroy.successful') }
-    else
-      render json: { message: I18n.t('controller.destroy.failed') }
+    @subject.destroy
+    respond_to do |format|
+      format.html { redirect_to subjects_url, notice: "subject was successfully destroyed." }
+      format.json { head :no_content }
     end
   end
 

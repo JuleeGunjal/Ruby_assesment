@@ -3,39 +3,51 @@ class StudentsController < ApplicationController
   before_action :find_student, only: %i[show update destroy]
 
   def index
-    render json: Student.all
+    @students = Student.all
   end
 
   def create
     @student = Student.new(student_params)
-    if @student.save
-      render json: { message: I18n.t('controller.save.successful') }
-    else
-      render json: { message: I18n.t('controller.save.failed') }
-    end
+    respond_to do |format|
+      if @student.save
+        format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
+        format.json { render :show, status: :created, location: @student }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
+      end
+    end  
   end
 
   def show
-    if @student
-      render json: @student
-    else
-      render json: { message: I18n.t('controller.show.failed') }
-    end
+    @student = Student.find(params[:id])
+  end
+
+   # GET /students/new
+   def new
+    @student = Student.new
+  end
+
+  # GET /students/1/edit
+  def edit
+   @student = Student.find(params[:id])
+   render :edit
   end
 
   def update
-    if @teacher.update(student_params)
-      render json: { message: I18n.t('controller.update.successful') }
+    @student = Student.find(params[:id])
+    if @student.update(student_params)
+      redirect_to(@student)
     else
-      render json: { message: I18n.t('controller.update.failed') }
+      render "edit"
     end
   end
 
   def destroy
-    if @student.destroy
-      render json: { message: I18n.t('controller.destroy.successful') }
-    else
-      render json: { message: I18n.t('controller.destroy.failed') }
+    @student.destroy
+    respond_to do |format|
+      format.html { redirect_to students_url, notice: "Student was successfully destroyed." }
+      format.json { head :no_content }
     end
   end
 

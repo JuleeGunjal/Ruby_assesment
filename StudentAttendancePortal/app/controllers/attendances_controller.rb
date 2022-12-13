@@ -1,50 +1,63 @@
 class AttendancesController < ApplicationController
   protect_from_forgery with: :null_session
-  before_action :find_student, only: %i[create update]
-  before_action :find_subject, only: %i[create update]
-  before_action :find_attendance, only: %i[show update destroy]
+  #before_action :find_student, only: %i[create update]
+  #before_action :find_attendance, only: %i[create update]
+  #before_action :find_attendance, only: %i[show update destroy]
 
   def index
-    render json: Attendance.all
+    @attendances = Attendance.all
   end
 
   def create
     @attendance = Attendance.new(attendance_params)
-    if @attendance.save
-      render json: { message: I18n.t('controller.save.successful') }
-    else
-      render json: { message: I18n.t('controller.save.failed') }
+    respond_to do |format|
+      if @attendance.save
+        format.html { redirect_to attendance_url(@attendance), notice: "Attendance was successfully created." }
+        format.json { render :show, status: :created, location: @attendance }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @attendance.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def show
-    if @attendance
-      render json: @attendance
-    else
-      render json: { message: I18n.t('controller.show.failed') }
-    end
+    @attendance = Attendance.find(params[:id])
+  end
+
+  def new
+    @attendance = Attendance.new
+    
+  end
+
+  def edit
+    @attendance = Attendance.find(params[:id])   
+    render :edit
   end
 
   def update
+    @attendance = Attendance.find(params[:id])
     if @attendance.update(attendance_params)
-      render json: { message: I18n.t('controller.update.successful') }
+      redirect_to(@attendance)
     else
-      render json: { message: I18n.t('controller.update.failed') }
+      render "edit"
     end
   end
 
   def destroy
-    if @attendance.destroy
-      render json: { message: I18n.t('controller.destroy.successful') }
-    else
-      render json: { message: I18n.t('controller.destroy.failed') }
+    @status_update = Attendance.find(params[:id])
+    if @status_update.present?
+      @status_update.destroy
     end
+    redirect_to attendances_url
   end
+
+
 
   private
 
   def attendance_params
-    params.require(:attendance).permit(:status, :month, :time, :subject_id, :student_id, :date)
+    params.require(:attendance).permit(:status, :month, :time, :attendance_id, :student_id, :date)
   end
 
   def find_student
@@ -53,8 +66,8 @@ class AttendancesController < ApplicationController
     render json: { meaasge: I18n.t('controller.present') }
   end
 
-  def find_subject
-    @subject = Subject.find params[:subject_id]
+  def find_attendance
+    @attendance = attendance.find params[:attendance_id]
   rescue ActiveRecord::RecordNotFound => e
     render json: { meaasge: I18n.t('controller.present') }
   end
