@@ -14,8 +14,6 @@ class UsersController < ApplicationController
   def create   
     @user = User.new(user_params)    
     if @user.save
-      totp = ROTP::TOTP.new(@user.otp_secret)
-      otp_code = totp.now
       render json: @user, status: 200
     else
       render json: { erors: @user.errors.full_messages }, status: 503
