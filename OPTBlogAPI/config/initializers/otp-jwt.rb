@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # config/initializers/otp-jwt.rb
 require 'otp'
 # To load the JWT related support.
